@@ -1,0 +1,77 @@
+#!/usr/bin/env python
+import threading
+
+#Different card counting strategys
+#Card Strategy	2		3		4		5		6		7		8		9	10,J,Q,K	A	Level of count
+#Hi-Lo			+1		+1		+1		+1		+1		0		0		0	   −1		−1		1
+#Hi-Opt I		0		+1		+1		+1		+1		0		0		0	   −1		0		1
+#Hi-Opt II		+1		+1		+2		+2		+1		+1		0		0	   −2		0		2
+#KO				+1		+1		+1		+1		+1		+1		0		0	   −1		−1		1
+#Omega II		+1		+1		+2		+2		+2		+1		0		−1	   −2		0		2
+#Red 7			+1		+1		+1		+1		+1		0/+1	0		0	   −1		−1		1
+#Halves			+0.5 	+1		+1		+1.5	+1		+0.5	0		-0.5   -1		-1		3
+#Zen Count		+1		+1		+2		+2		+2		+1		0		0	   −2		−1		2
+
+#source: https://en.wikipedia.org/wiki/Card_counting
+
+def values():
+	total = 0
+	
+	#Halves method, you can change card values to try different methods.
+	values.two = 0.5
+	values.three = 1
+	values.four = 1
+	values.five = 1.5
+	values.six = 1
+	values.seven = 0.5
+	values.eight = 0
+	values.nine = -0.5
+	values.ten = -1
+	values.jack = -1
+	values.queen = -1
+	values.king = -1
+	values.ace = -1
+	
+	while True:
+		whatCard = input(" \n:")
+			
+		if whatCard == "2":
+			total = total + values.two
+		elif whatCard == "3":
+			total = total + values.three
+		elif whatCard == "4":
+			total = total + values.four
+		elif whatCard == "5":
+			total = total + values.five
+		elif whatCard == "6":
+			total = total + values.six
+		elif whatCard == "7":
+			total = total + values.seven
+		elif whatCard == "8":
+			total = total + values.eight
+		elif whatCard == "9":
+			total = total + values.nine
+		elif whatCard == "10":
+			total = total + values.ten
+		elif whatCard == "j":
+			total = total + values.jack
+		elif whatCard == "q":
+			total = total + values.queen
+		elif whatCard == "k":
+			total = total + values.king
+		elif whatCard == "a":
+			total = total + values.ace
+		elif whatCard == "rr":
+			total = 0
+		else:
+			print("Options: 2 .. 10, j, q, k, a. To reset count, type rr")
+		
+		printCount = print("Current count: ", total)			
+			
+print("Blackjack card counting, based on Halves method.\n\
+The higher the count is the bigger chance there is for a high card to be drawn. \n")	
+print("Specify card to add to count, o for options")
+
+t = threading.Thread(target=values, daemon=True)
+t.start()
+t.join()
